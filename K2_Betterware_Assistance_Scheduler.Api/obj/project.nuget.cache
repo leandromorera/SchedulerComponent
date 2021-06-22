@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HsCSS5hah+8BkG5Bi52sS+Zu52UI5K2e72YbC9gvFx84/0lxyoEpVgwcNKW44yUIwi4NyjQLBOYdg5k/RcsZsw==",
+  "success": true,
+  "projectFilePath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\leomo\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

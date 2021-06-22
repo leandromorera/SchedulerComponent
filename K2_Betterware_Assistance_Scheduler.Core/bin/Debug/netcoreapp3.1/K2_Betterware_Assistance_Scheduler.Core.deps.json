@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "K2_Betterware_Assistance_Scheduler.Core/1.0.0": {
+        "runtime": {
+          "K2_Betterware_Assistance_Scheduler.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "K2_Betterware_Assistance_Scheduler.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

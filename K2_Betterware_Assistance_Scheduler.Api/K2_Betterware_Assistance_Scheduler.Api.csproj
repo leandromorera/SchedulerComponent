@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\K2_Betterware_Assistance_Scheduler.Core\K2_Betterware_Assistance_Scheduler.Core.csproj" />
+    <ProjectReference Include="..\K2_Betterware_Assistance_Scheduler.Infraestructure\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj" />
+  </ItemGroup>
+
+
+</Project>
