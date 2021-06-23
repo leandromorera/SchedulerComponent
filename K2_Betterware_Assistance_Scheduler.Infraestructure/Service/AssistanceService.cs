@@ -12,16 +12,56 @@ using System.IO;
 using System.Text.Json.Serialization;
 using System.Net.Http;
 
+using System.Configuration;
+using System.Collections.Specialized;
+using System.Linq;
+
+
+
+
+
+
 namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
 {
+
     public class AssistanceService
     {
 
+        public string config_scheduler()
+        {
+            //////////// credenciales workbeat ///////////////////////////////////
+            string dir_tok_workbeat = "https://api.workbeat.com/oauth/token";
+            string cli_cred = "7E800F92-B08E-4A12-9C5C-EFB03E170301";
+            string cli_sec = "4088828B-9601-400F-BDDC-EA73818BA4C4";
+
+            /////////// credenciales biostar /////////////////////////////////////
+            string url_bio= "http://10.10.26.55:443/api/login";
+            string usr_bio = "consultas";
+            string id_bio = "Consulta1#";
+
+            /////////// metodos ///////////////////////////////////////////////
+            string url_check_beat = "https://api.workbeat.com/v2/asi/checada?id=";
+            string url_search_bio = "http://10.10.26.55:443/api/events/search";
+            
+
+            return dir_tok_workbeat + '_' + cli_cred + '_' + cli_sec + '_' + url_bio + '_' + usr_bio + '_' + id_bio + '_' + url_check_beat + '_' + url_search_bio;
+        }
+
+
+
+
         public string getToken()
         {
-            string srcv = "https://api.workbeat.com/oauth/token";
+            //string srcv = "https://api.workbeat.com/oauth/token";
+            string srcv = config_scheduler().ToString().Split('_')[0];
+            string cli = config_scheduler().ToString().Split('_')[1];
+            string sec = config_scheduler().ToString().Split('_')[2];
+
+
+
             string meth = "POST";
-            string usr_access = "grant_type=client_credentials&client_id=7E800F92-B08E-4A12-9C5C-EFB03E170301&client_secret=4088828B-9601-400F-BDDC-EA73818BA4C4";
+            //string usr_access = "grant_type=client_credentials&client_id=7E800F92-B08E-4A12-9C5C-EFB03E170301&client_secret=4088828B-9601-400F-BDDC-EA73818BA4C4";
+            string usr_access = "grant_type=client_credentials&client_id="+cli+"&client_secret="+sec;
             ////////////////////////////////////////////////////////////////////////////////
             string cont_type = "application/x-www-form-urlencoded";
             string respuesta_tok = SchedulerConnection.posting(srcv, usr_access, meth, cont_type);
@@ -42,7 +82,12 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             string vv = "nada";
             string v2 = "nada";
 
-            string url = "http://10.10.26.55:443/api/login";
+            string url = config_scheduler().ToString().Split('_')[3];
+            string usr = config_scheduler().ToString().Split('_')[4];
+            string id = config_scheduler().ToString().Split('_')[5];
+
+
+            //string url = "http://10.10.26.55:443/api/login";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -50,7 +95,8 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                string jsonb = "{\"User\":{\"login_id\":\"consultas\",\"password\":\"Consulta1#\"}}";
+                //string jsonb = "{\"User\":{\"login_id\":\"consultas\",\"password\":\"Consulta1#\"}}";
+                string jsonb = "{\"User\":{\"login_id\":\""+usr+"\",\"password\":\""+id+"\"}}";
                 streamWriter.Write(jsonb);
             }
             try
@@ -84,7 +130,12 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
         {
             //string token = giveme_tok();
             //string direccion = "https: //api.workbeat.com/v2/asi/checada?id=8251&fechahora=2019-11-05T09:04:08&dispositivoId=11948&dirección=[E|1|N]";
-            string direccion = "https://api.workbeat.com/v2/asi/checada?id=" + p_id + "&fechahora=" + fechahora + "&dispositivoId=" + dispositivoId + "&dirección=" + posi;
+            string check = config_scheduler().ToString().Split('_')[6];
+
+            //string direccion = "https://api.workbeat.com/v2/asi/checada?id=" + p_id + "&fechahora=" + fechahora + "&dispositivoId=" + dispositivoId + "&dirección=" + posi;
+
+            string direccion = check + p_id + "&fechahora=" + fechahora + "&dispositivoId=" + dispositivoId + "&dirección=" + posi;
+
             string responseBody = "nada";
             var url = direccion;
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -122,7 +173,12 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             string responseBody = "nada";
             string vv = "nada";
             string cadena = "nada";
-            string url = "http://10.10.26.55:443/api/events/search";
+
+            string search = config_scheduler().ToString().Split('_')[7];
+
+            //string url = "http://10.10.26.55:443/api/events/search";
+
+            string url = search;
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
 

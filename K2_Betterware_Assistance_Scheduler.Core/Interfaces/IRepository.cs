@@ -8,6 +8,8 @@ namespace K2_Betterware_Assistance_Scheduler.Core.Interfaces
 {
     public interface IRepository
     {
+
+
         string getToken();
         
 

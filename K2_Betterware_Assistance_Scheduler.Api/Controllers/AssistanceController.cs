@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using K2_Betterware_Assistance_Scheduler.Core.Interfaces;
 using K2_Betterware_Assistance_Scheduler.Infraestructure.Repositories;
 
+using System.Configuration;
+using System.Collections.Specialized;
+
 
 namespace K2_Betterware_Assistance_Scheduler.Api.Controllers
 {
@@ -24,8 +27,9 @@ namespace K2_Betterware_Assistance_Scheduler.Api.Controllers
         [HttpGet]
         public IActionResult GetAssistance()
         {
-            
 
+
+           
             var orchesting = _repository.registrando_bio_beat();
 
             //return Ok(assistance+"WWWWWWWWWWWWWWWWWWWW_"+ emp_resp_empl+"WWWWWWWWWWWWWWWWWWWWW_"+ emp_resp_per+"WWWWWWWWWWWWWWWWWWWW_"+response_check+"BBBBBBBBBBBBBBBBBBB_"+ tk_bio + "BBBBBBBBBBBBBBBB_"+ Usr_bio + "BBBBBBBBBBBBBBB_"+ Ev_bio + "BBBBBBBBBBBBBBBBBBB_"+ Dev_bio);

@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K2_Betterware_Assistance_Scheduler.Api", "K2_Betterware_Assistance_Scheduler.Api\K2_Betterware_Assistance_Scheduler.Api.csproj", "{2A5DA91B-F426-4FEB-BC8B-409DA3BDD1C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K2_Betterware_Assistance_Scheduler.Api", "K2_Betterware_Assistance_Scheduler.Api\K2_Betterware_Assistance_Scheduler.Api.csproj", "{2A5DA91B-F426-4FEB-BC8B-409DA3BDD1C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K2_Betterware_Assistance_Scheduler.Core", "K2_Betterware_Assistance_Scheduler.Core\K2_Betterware_Assistance_Scheduler.Core.csproj", "{23A1C1BB-6986-4D55-B741-91EE6EC0E703}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K2_Betterware_Assistance_Scheduler.Core", "K2_Betterware_Assistance_Scheduler.Core\K2_Betterware_Assistance_Scheduler.Core.csproj", "{23A1C1BB-6986-4D55-B741-91EE6EC0E703}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K2_Betterware_Assistance_Scheduler.Infraestructure", "K2_Betterware_Assistance_Scheduler.Infraestructure\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj", "{B8178E85-3CA2-4337-A68C-FAFF932FF70A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K2_Betterware_Assistance_Scheduler.Infraestructure", "K2_Betterware_Assistance_Scheduler.Infraestructure\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj", "{B8178E85-3CA2-4337-A68C-FAFF932FF70A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0428C3A9-9610-41F6-AD66-0CA90C89A7F5}"
+	ProjectSection(SolutionItems) = preProject
+		XMLFile1.xml = XMLFile1.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,7 +12,7 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Repositories
     public class AssistanceRepository : IRepository
     {
 
-       
+
 
 
         public string getToken()
