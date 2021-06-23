@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj": {}
+    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj": {}
   },
   "projects": {
-    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj": {
+    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj",
+        "projectUniqueName": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj",
         "projectName": "K2_Betterware_Assistance_Scheduler.Api",
-        "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj",
+        "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Api\\K2_Betterware_Assistance_Scheduler.Api.csproj",
         "packagesPath": "C:\\Users\\leomo\\.nuget\\packages\\",
-        "outputPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Api\\obj\\",
+        "outputPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -34,11 +34,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj": {
-                "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj"
+              "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj": {
+                "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj"
               },
-              "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj": {
-                "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj"
+              "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj": {
+                "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj"
               }
             }
           }
@@ -74,14 +74,14 @@
         }
       }
     },
-    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj": {
+    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
+        "projectUniqueName": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
         "projectName": "K2_Betterware_Assistance_Scheduler.Core",
-        "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
+        "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
         "packagesPath": "C:\\Users\\leomo\\.nuget\\packages\\",
-        "outputPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\obj\\",
+        "outputPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -134,14 +134,14 @@
         }
       }
     },
-    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj": {
+    "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj",
+        "projectUniqueName": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj",
         "projectName": "K2_Betterware_Assistance_Scheduler.Infraestructure",
-        "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj",
+        "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Infraestructure\\K2_Betterware_Assistance_Scheduler.Infraestructure.csproj",
         "packagesPath": "C:\\Users\\leomo\\.nuget\\packages\\",
-        "outputPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Infraestructure\\obj\\",
+        "outputPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Infraestructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -164,8 +164,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj": {
-                "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj"
+              "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj": {
+                "projectPath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj"
               }
             }
           }

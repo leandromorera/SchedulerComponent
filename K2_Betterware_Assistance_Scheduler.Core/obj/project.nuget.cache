@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yiJNEjubXpBeU5YolCIcKJARFh5tvSUcr36v6pqvIAnbQPBYoTQs52UHqpJ9bs+OoEMlzvzTBDtnhow6/y6H/g==",
+  "dgSpecHash": "XHnRWU8oH9JFDjCnirYOdNP4AqI2C4v0engPF9kb3H676CbIMg5YrUoWx5gdaqCfiCO1/jGg/XbDcMfQIO0Xaw==",
   "success": true,
-  "projectFilePath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
+  "projectFilePath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

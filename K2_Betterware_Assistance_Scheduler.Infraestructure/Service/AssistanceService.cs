@@ -24,7 +24,7 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             string usr_access = "grant_type=client_credentials&client_id=7E800F92-B08E-4A12-9C5C-EFB03E170301&client_secret=4088828B-9601-400F-BDDC-EA73818BA4C4";
             ////////////////////////////////////////////////////////////////////////////////
             string cont_type = "application/x-www-form-urlencoded";
-            string respuesta_tok = WorkBeatConnection.posting(srcv, usr_access, meth, cont_type);
+            string respuesta_tok = SchedulerConnection.posting(srcv, usr_access, meth, cont_type);
             //////////////////////////////// descerializando cadenas json /////////////////////////////////
             Token from_js = JsonSerializer.Deserialize<Token>(respuesta_tok);
             Console.WriteLine(from_js.access_token);
@@ -33,81 +33,7 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
         }
 
 
-        /*public string giveme_workbeat_generic(string servapi)
-        {
-            string usr_access = getToken();
-
-            var myRequest = (HttpWebRequest)WebRequest.Create("https://api.workbeat.com" + servapi + "?access_token=" + getToken());
-            myRequest.Method = "GET";
-            WebResponse response = myRequest.GetResponse();
-            Stream strReader = response.GetResponseStream();
-            StreamReader objReader = new StreamReader(strReader);
-            string responseBody = objReader.ReadToEnd();
-            return responseBody;
-        }
-
-
-        public string giveme_workbeat_empleados(string servapi)
-        {
-
-            string usr_access = getToken();
-            var myRequest = (HttpWebRequest)WebRequest.Create("https://api.workbeat.com" + servapi + "?access_token=" + getToken());
-            myRequest.Method = "GET";
-            WebResponse response = myRequest.GetResponse();
-            Stream strReader = response.GetResponseStream();
-            StreamReader objReader = new StreamReader(strReader);
-            string responseBody = objReader.ReadToEnd();
-            return responseBody;
-        }
-
-
-        public string giveme_workbeat_persona(string servapi, string npr)
-        {
-            string usr_access = getToken();
-            var myRequest = (HttpWebRequest)WebRequest.Create("https://api.workbeat.com" + servapi + npr + "?access_token=" + getToken());
-            myRequest.Method = "GET";
-            WebResponse response = myRequest.GetResponse();
-            Stream strReader = response.GetResponseStream();
-            StreamReader objReader = new StreamReader(strReader);
-            string responseBody = objReader.ReadToEnd();
-            return responseBody;
-        }
-
-        public string Checando(string p_id, string fechahora, string dispositivoId, string posi)
-        {
-            string token = getToken();
-            //string direccion = "https: //api.workbeat.com/v2/asi/checada?id=8251&fechahora=2019-11-05T09:04:08&dispositivoId=11948&dirección=[E|1|N]";
-            string direccion = "https://api.workbeat.com/v2/asi/checada?id=" + p_id + "&fechahora=" + fechahora + "&dispositivoId=" + dispositivoId + "&dirección=" + posi;
-            string responseBody = "nada";
-            var url = direccion;
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Headers.Add("Authorization", "Bearer " + token);
-            request.Headers.Add("Accept", "application/json");
-            try
-            {
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (Stream strReader = response.GetResponseStream())
-                    {
-                        if (strReader == null) ;
-                        using (StreamReader objReader = new StreamReader(strReader))
-                        {
-                            responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
-                            Console.WriteLine(responseBody);
-                        }
-                    }
-                }
-            }
-            catch (WebException ex)
-            {
-                Console.WriteLine(ex);
-                responseBody = ex.ToString();
-            }
-            return responseBody;
-        }*/
+        
 
         ////////////////////////////// metodos biostar /////////////////////////////////////////////////////////////
         public string token_bio()
@@ -151,76 +77,7 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             return vv;//responseBody+'_'+v2+'_'+vv;
         }
 
-        /*public string user_bio()
-        {
-            string url = "http://10.10.26.55:443/api/users?group_id=1&limit=1&offset=1&order_by=user_id%3Afalse&userId=1&last_modified=10009";
-            var myRequest = (HttpWebRequest)WebRequest.Create(url);
-            myRequest.Method = "GET";
-            myRequest.Headers.Add("bs-session-id", token_bio());
-            WebResponse response = myRequest.GetResponse();
-            Stream strReader = response.GetResponseStream();
-            StreamReader objReader = new StreamReader(strReader);
-            string responseBody = objReader.ReadToEnd().ToString();
-            return responseBody;
-        }
-
-        public string event_search_bio()
-        {
-            string responseBody = "nada";
-            string vv = "nada";
-            string url = "http://10.10.26.55:443/api/events/search";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "POST";
-            request.Headers.Add("bs-session-id", token_bio());
-            request.ContentType = "application/json";
-            request.Headers.Add("Accept", "application/json");
-            // limite, operador, valor fecha-hora //
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                string jsonb = "{\"Query\":{\"limit\":51,\"conditions\":[{\"column\":\"datetime\",\"operator\":3,\"values\":[\"2019-07-30T15:00:00.000Z\"]}],\"orders\":[{\"column\":\"datetime\",\"descending\":false}]}}";
-                streamWriter.Write(jsonb);
-            }
-            try
-            {
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (Stream strReader = response.GetResponseStream())
-                    {
-                        if (strReader == null) ;
-                        using (StreamReader objReader = new StreamReader(strReader))
-                        {
-                            responseBody = objReader.ReadToEnd().ToString();
-                            //vv = response.Headers.Get(1).ToString();   //obtencion de los headers
-                            //v2 = response.Headers.Get(0).ToString();
-                        }
-                    }
-                }
-            }
-            catch (WebException ex)
-            {
-                Console.WriteLine(ex);
-                responseBody = ex.ToString();
-            }
-            return responseBody;
-        }
-
-
-        public string device_bio()
-        {
-            string responseBody = "nada";
-            string vv = "nada";
-            string url = "http://10.10.26.55:443/api/devices?monitoring_permission=false";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Headers.Add("bs-session-id", token_bio());
-            request.ContentType = "application/json";
-            request.Headers.Add("Accept", "application/json");
-            WebResponse response = request.GetResponse();
-            Stream strReader = response.GetResponseStream();
-            StreamReader objReader = new StreamReader(strReader);
-            responseBody = objReader.ReadToEnd().ToString();
-            return responseBody;
-        }*/
+       
 
 
         public string Checando_tok(string p_id, string fechahora, string dispositivoId, string posi, string tk_beat)
