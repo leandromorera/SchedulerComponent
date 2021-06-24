@@ -42,17 +42,17 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Repositories
             return strResponse;
         }
 
-        public string[] bio_event_search(string tk_bio)
+        public string[] bio_event_search(string f_ini, string f_nal, string limit, string type,string tk_bio)
         {
             AssistanceService assistanceService = new AssistanceService();
-            String[] strResponse = assistanceService.bio_event_search(tk_bio); // servicio y parametro persona
+            String[] strResponse = assistanceService.bio_event_search(f_ini,f_nal,limit,type,tk_bio); // servicio y parametro persona
             return strResponse;
         }
 
-        public string[] registrando_bio_beat()
+        public string[] registrando_bio_beat(string f_ini, string f_nal, string limit, string type)
         {
             AssistanceService assistanceService = new AssistanceService();
-            String[] strResponse = assistanceService.registrando_bio_beat(); // servicio y parametro persona
+            String[] strResponse = assistanceService.registrando_bio_beat(f_ini,f_nal,limit,type); // servicio y parametro persona
             return strResponse;
         }
 

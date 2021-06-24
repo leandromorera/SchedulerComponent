@@ -15,7 +15,7 @@ using System.Net.Http;
 using System.Configuration;
 using System.Collections.Specialized;
 using System.Linq;
-
+using System.Globalization;
 
 
 
@@ -168,7 +168,7 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             return responseBody;
         }
 
-        public string[] bio_event_search(string tk_bio) //Tuple<string, string> bio_event_search() 
+        public string[] bio_event_search(string f_ini, string f_nal, string limit, string type, string tk_bio) //Tuple<string, string> bio_event_search() 
         {
             string responseBody = "nada";
             string vv = "nada";
@@ -193,7 +193,9 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 //string jsonb = "{\"Query\":{\"limit\":51,\"conditions\":[{\"column\":\"datetime\",\"operator\":1,\"values\":[\"2019-07-30T15:00:00.000Z\"]}],\"orders\":[{\"column\":\"datetime\",\"descending\":false}]}}";
-                string jsonb = "{\"Query\":{\"limit\":51,\"orders\":[{\"column\":\"datetime\",\"descending\":true}]}}";
+                string jsonb = "{\"Query\":{\"limit\":51,\"conditions\":[{\"column\":\"datetime\",\"operator\":3,\"values\":[\"2021-06-20T01:26:57.00Z\",\"2021-06-24T01:26:57.00Z\"]},{\"column\":\"event_type_id.code\",\"operator\":0,\"values\":[\"4867\"]}]}}";
+                //string jsonb = "{\"Query\":{\"limit\":"+limit+",\"conditions\":[{\"column\":\"datetime\",\"operator\":3,\"values\":[\""+f_ini+".00Z\",\""+f_nal+".00Z\"]},{\"column\":\"event_type_id.code\",\"operator\":0,\"values\":[\""+type+ "\"],\"descending\":true}]}}";
+                //string jsonb = "{\"Query\":{\"limit\":51,\"orders\":[{\"column\":\"datetime\",\"descending\":true}]}}";
                 streamWriter.Write(jsonb);
             }
             try
@@ -225,6 +227,11 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             String str = from_js_2.rows.ToString();
             //dynamic objects = JsonSerializer.Deserialize<dynamic>(str);
             dynamic objects = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(str);
+
+
+
+
+
             string[] respuestas = new string[objects.Count];
             int ct = 0;
             for (int i_el = 0; i_el < objects.Count; i_el++)
@@ -232,10 +239,15 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
                 Data_event.intern_data from_js_3 = JsonSerializer.Deserialize<Data_event.intern_data>(objects[i_el].ToString());
                 Data_event.intern_in_data from_js_dtime = JsonSerializer.Deserialize<Data_event.intern_in_data>(from_js_3.device_id);
 
+                Data_event.intern_in_data userid = JsonSerializer.Deserialize<Data_event.intern_in_data>(from_js_3.user_id);
+
                 if (from_js_3.user_id_name != null)
                 {
                     //respuestas[ct] = "fecha_:" + from_js_3.datetime.ToString() + "__Id_dispositivo_:" + from_js_dtime.id.ToString() + "__Nombre_:" + from_js_dtime.name.ToString() + '_' + from_js_3.user_id_name.ToString();
-                    respuestas[ct] = from_js_3.datetime.ToString() + "/" + from_js_dtime.id.ToString() + "/" + from_js_dtime.name.ToString() + '/' + from_js_3.user_id_name.ToString();
+                    //respuestas[ct] = from_js_3.datetime.ToString() + "/" + from_js_dtime.id.ToString() + "/" + from_js_dtime.name.ToString() + '/' + from_js_3.user_id_name.ToString();
+
+                    respuestas[ct] = from_js_3.datetime.ToString() + "/" + from_js_dtime.id.ToString() + "/" + from_js_dtime.name.ToString() + '/' + userid.user_id.ToString();
+
                     ct += 1;
                     //Data_event.intern_in_data from_js_usr = JsonSerializer.Deserialize<Data_event.intern_in_data>(from_js_3.user_id_name);
                     //cadena = cadena + "fecha_:" + from_js_3.datetime.ToString() + "__Id_dispositivo_:" + from_js_dtime.id.ToString() + "__Nombre_:" + from_js_dtime.name.ToString()+'_'+ from_js_3.user_id_name.ToString();// +'_'+ from_js_dtime.user_id_name.ToString();// + '_' + usd_id.user_id.ToString() + '_' + usd_id.name.ToString();
@@ -246,20 +258,58 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             return salida;// +'_'+usd_id.user_id.ToString()+'_'+usd_id.name.ToString();      //objects[0].ToString(); //from_js_2.rows.ToString() + objects[0];// from_js_dtime.ToString() + '_' + from_js_dvid.id.ToString() + '_' + from_js_dvid.name.ToString();//from_js_2.rows.ToString();//from_js.EventCollection.ToString();//responseBody.ToString(); // from_js.ToString();//new Tuple<string, string>(from_js.ToString(), from_js.ToString());  //responseBody;
         }
 
+        public string giveme_workbeat_empleados()
+        {
+            string servapi = "/v3/asi/empleados";
+            string usr_access = getToken();
+            var myRequest = (HttpWebRequest)WebRequest.Create("https://api.workbeat.com" + servapi + "?access_token=" + getToken());
+            //var myRequest = (HttpWebRequest)WebRequest.Create(generic + servapi + "?access_token=" + getToken());
+            myRequest.Method = "GET";
+            WebResponse response = myRequest.GetResponse();
+            Stream strReader = response.GetResponseStream();
+            StreamReader objReader = new StreamReader(strReader);
+            string responseBody = objReader.ReadToEnd();//.ToString();
+            return responseBody;
+        }
+
+        public string parsing_beat(string bioidemp) 
+        {
+            string found = "nada";
+
+            string quer = giveme_workbeat_empleados();
+
+            string[] analize_nip = quer.Split("NIP\":\"");
+            string[] analize_emp = quer.Split("NumeroEmpleado\":\"");
+            
+            for (int i_el = 0; i_el < analize_nip.Length-1; i_el++)
+            {   
+                if (analize_emp[i_el].Split("\",\"NombreEmpleado\":\"")[0] == '0'+bioidemp)
+                {
+                    found = analize_nip[i_el].Split("\"}],\"Atributos")[0];
+                }
+            }
+            return found;
+        }
+
+
 
         /// <summary>
         /// componente de registro desde Biostar a workBeat
         /// </summary>
-        public string[] registrando_bio_beat()
+        public string[] registrando_bio_beat(string f_ini, string f_nal, string limit, string type)
         {
             string to_check = " ";
             string reponse = " ";
+
             string tok_bio = token_bio();
             string tok_beat = getToken();
+
+
             //"2021-06-17T17:13:30Z"/"542194755"/"COMEDOR 2 BARRA MEXICANA"/"1794(MARTINEZ HERRERA ARTURO)"
-            string[] data_check = bio_event_search(tok_bio);
+            string[] data_check = bio_event_search(f_ini,f_nal,limit,type,tok_bio);
 
             string[] salida = new string[data_check.Length];
+            //string[] salida_test = new string[10];
             //string[] salida = new string[data_check.Length];
 
             if (data_check.Length == 0)
@@ -268,39 +318,63 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
                 string fechahora = "2019-11-05T09:04:08";
                 string dispositivoId = "11948";
                 string posi = "[E|1|N]";
-                salida[0] = Checando_tok(p_id1, fechahora, dispositivoId, posi, tok_beat);
+                //salida[0] = Checando_tok(p_id1, fechahora, dispositivoId, posi, tok_beat);
+                //salida_test[0] = Checando_tok(p_id1, fechahora, dispositivoId, posi, tok_beat);
             }
             else
             {
+                //////////////////////////////////////// lo consultado en biostar no existe en workbeat y no permite el registro //////////////////////
+                //////////////////////////////////////// 
+                string nips = "4318"+','+"7482"+','+"5766"+','+"8985"+','+"4220"+','+"9952"+','+"5210"+','+"5805"+','+"1205"+','+"2056";
+
+
+                //string fechora = "2019-11-05T09:04:08" + ',' + "2019-11-05T09:04:08" + ',' + "2019-11-05T09:04:08" + ',' + "8985" + ',' + "4220" + ',' + "9952" + ',' + "5210" + ',' + "5805" + ',' + "1205" + ',' + "2056";
+                //for (int i_ch = 0; i_ch < 10; i_ch++)
+
 
                 for (int i_ch = 0; i_ch < data_check.Length; i_ch++)
-                {
+                //for (int i_ch = 0; i_ch < 10; i_ch++)
+                    {
+                    //DateTime localDate = DateTime.Now;
+                    //string f1 = localDate.ToString("s");
+                    //System.Threading.Thread.Sleep(200);
+
+
                     to_check = data_check[i_ch];
                     string[] to_check_words = to_check.Split('/');
-                    string[] p_idin = to_check_words[3].Split('"');
+                    string p_idin = to_check_words[3].Split('"')[1];     ///
 
                     //string to_fix = to_check_words[0].ToString().Split('"')[1];
                     string ppp = to_check_words[0].ToString().Split('"')[1].Split('Z')[0];
 
-                    // test
-                    //53462021-06-17T18:54:25542194757[E|1|N]
-                    //82512019-11-05T09:04:0811948[E|1|N]
 
-                    string p_id = "8251";
-                    string fechahora = "2019-11-05T09:04:08";
-                    string dispositivoId = "11948";
-                    string posi = "[E|1|N]";
 
-                    //string p_id = p_idin[1].Split('(')[0];
-                    //string fechahora = ppp;
-                    //string dispositivoId = to_check_words[1].ToString().Split('"')[1];
-                    //string posi = to_check_words[2].ToString().Split('"')[1]; //"[E|1|N]";
+                    DateTime localDate1 = DateTime.Now;
 
-                    //salida[i_ch] = "Dato Biostar rechazado:_" + p_i + fecha + dispositivo + pos + "________________Dato en Workbeat aceptado:_" + p_id1 + fechahora + dispositivoId + posi;// to_fix;//p_id[1].Split('(')[0];
+
+
+
+                    string p_id = "2821"; //nips.Split(',')[i_ch];   // "8985"; //nips[i_ch].ToString();//"8251"; //nips[i_ch].ToString();                                   //"6431";//6431 1937 9269 9749 3183 4318 4930 4206 2726 7599
+                    string fechahora = localDate1.ToString("s");     // "2019-11-05T09:04:08";
+                    string dispositivoId = to_check_words[1].ToString().Split('"')[1]; //"542194757";// to_check_words[1].ToString().Split('"')[1]; //"11948";
+                    string posi = "[E|1|N]"; //to_check_words[2].ToString().Split('"')[1];// "[E|1|N]";
+
+                    ///////////////////////////////////////////////////////////////////////////////////////
+                    ///////////////////////// convertir de p_idin a NIP ///////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////////////////
+
+                    //string converted = parsing_beat(p_idin);
+                    string p_id1 = parsing_beat(p_idin);                                        //[1].Split('(')[0];
+                    string fechahora1 = localDate1.ToString("s");
+                    string dispositivoId1 = to_check_words[1].ToString().Split('"')[1];
+                    string posi1 = to_check_words[2].ToString().Split('"')[1];                   //"[E|1|N]";
+
+                    //salida[i_ch] = "Dato Biostar rechazado:_" + p_id1 +'_'+fechahora1 +'_'+ dispositivoId1 +'_'+ posi1 + "________________Dato en Workbeat aceptado:_" + p_id +'_'+ fechahora +'_'+ dispositivoId +'_'+ posi;// to_fix;//p_id[1].Split('(')[0];
                     //salida[i_ch] = p_id1 + fechahora + dispositivoId + "[E|1|N]";// to_fix;//p_id[1].Split('(')[0];
-
-                    //salida[i_ch] = Checando(p_id1,fechahora,dispositivoId,posi,tok_beat);   ////////////// datos Aceptados /////////////
-                    salida[i_ch] = Checando_tok(p_id, fechahora, dispositivoId, posi, tok_beat);
+                    if (p_id1 != "nada")
+                    { salida[i_ch] = Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat); }   ////////////// datos Aceptados /////////////
+                    //salida[i_ch] = Checando_tok(p_id, fechahora, dispositivoId, posi, tok_beat);
+                    //salida_test[i_ch] = Checando_tok(p_id, fechahora, dispositivoId, posi, tok_beat);
                 }
             }
             //Array.Copy(respuestas, 0, salida, 0, ct - 1);

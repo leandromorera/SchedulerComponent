@@ -71,7 +71,8 @@ namespace K2_Betterware_Assistance_Scheduler.Core.DTOs
             public string datetime { get; set; }
             [JsonConverter(typeof(InfoToStringConverter))]
             public string index { get; set; }
-
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string user_id { get; set; }
             [JsonConverter(typeof(InfoToStringConverter))]
             public string user_group_id { get; set; }
             [JsonConverter(typeof(InfoToStringConverter))]
@@ -110,6 +111,9 @@ namespace K2_Betterware_Assistance_Scheduler.Core.DTOs
             [JsonConverter(typeof(InfoToStringConverter))]
             public string user_id_name { get; set; }
 
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string user_id { get; set; }
+
 
         }
 
@@ -127,6 +131,47 @@ namespace K2_Betterware_Assistance_Scheduler.Core.DTOs
 
 
 
+        public class intern_beat
+        {
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string IdTenant { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string IdPersona { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string NumeroEmpleado { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string NombreEmpleado { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string ApellidoPaterno { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string ApellidoMaterno { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string Generales { get; set; }
+        }
+
+        public class more_intern_beat
+        {
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string Turno { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string RegistraAsistencia { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string GeneraHorasExtras { get; set; }
+
+            [JsonConverter(typeof(InfoToStringConverter))]
+            public string NIP { get; set; }
+
+        }
 
     }
 }
