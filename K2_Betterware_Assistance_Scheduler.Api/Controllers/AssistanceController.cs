@@ -10,6 +10,10 @@ using K2_Betterware_Assistance_Scheduler.Infraestructure.Repositories;
 using System.Configuration;
 using System.Collections.Specialized;
 using System.Timers;
+using Quartz;
+using Quartz.Impl;
+
+
 
 namespace K2_Betterware_Assistance_Scheduler.Api.Controllers
 {
@@ -34,7 +38,7 @@ namespace K2_Betterware_Assistance_Scheduler.Api.Controllers
 
 
             if (f_ini == null || f_nal == null || limit == null || type == null)
-            { orchesting = "Debe ingresar fecha de inicio, fecha final, limite de registros y tipo de registro por ejemplo: https://localhost:44354/api/Assistance?df27f4c5b655409bb94c471e5c314aba&f_ini=\"2021-06-20T10:26:57\"&f_nal=\"2021-06-20T20:26:57\"&limit=\"51\"&type=\"4867\""; }
+            { orchesting = "Error;  debe ingresar fecha de inicio, fecha final, limite de registros y tipo de registro por ejemplo: https://localhost:44354/api/Assistance?df27f4c5b655409bb94c471e5c314aba&f_ini=\"2021-06-20T10:26:57\"&f_nal=\"2021-06-20T20:26:57\"&limit=\"51\"&type=\"4867\""; }
             else 
             { orchesting = _repository.registrando_bio_beat(f_ini, f_nal, limit, type);}
 

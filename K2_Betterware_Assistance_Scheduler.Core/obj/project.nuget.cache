@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "XHnRWU8oH9JFDjCnirYOdNP4AqI2C4v0engPF9kb3H676CbIMg5YrUoWx5gdaqCfiCO1/jGg/XbDcMfQIO0Xaw==",
+  "dgSpecHash": "XWkpwMPdEtYg0Zvg822DzwHQy1T+JbFgWIAg8oZVtaCPSXuLAmoRPTsGR/5ePQVwsV48Bf0ZtBhj2p+EEB2H7g==",
   "success": true,
   "projectFilePath": "C:\\WorkBeat\\K2_Betterware_Assistance_Scheduler\\SchedulerComponent\\K2_Betterware_Assistance_Scheduler.Core\\K2_Betterware_Assistance_Scheduler.Core.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\leomo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.1.1\\microsoft.extensions.logging.abstractions.2.1.1.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\quartz\\3.3.2\\quartz.3.3.2.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.7.0\\system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
+    "C:\\Users\\leomo\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

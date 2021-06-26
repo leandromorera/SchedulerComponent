@@ -17,8 +17,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Globalization;
 
-
-
+using System.IO;
+using System.Threading.Tasks;
+using System.IO;
 
 
 namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
@@ -168,17 +169,14 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             return responseBody;
         }
 
-        public string[] bio_event_search(string f_ini, string f_nal, string limit, string type, string tk_bio) //Tuple<string, string> bio_event_search() 
+        public string[] bio_event_search(string tk_bio, string jsonb) //Tuple<string, string> bio_event_search() 
         {
             string responseBody = "nada";
             string vv = "nada";
             string cadena = "nada";
 
-            string search = config_scheduler().ToString().Split('_')[7];
-
-            //string url = "http://10.10.26.55:443/api/events/search";
-
-            string url = search;
+            string url = config_scheduler().Split('_')[7];
+            // string url = "http://10.10.26.55:443/api/events/search";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
 
@@ -193,9 +191,7 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 //string jsonb = "{\"Query\":{\"limit\":51,\"conditions\":[{\"column\":\"datetime\",\"operator\":1,\"values\":[\"2019-07-30T15:00:00.000Z\"]}],\"orders\":[{\"column\":\"datetime\",\"descending\":false}]}}";
-                string jsonb = "{\"Query\":{\"limit\":51,\"conditions\":[{\"column\":\"datetime\",\"operator\":3,\"values\":[\"2021-06-20T01:26:57.00Z\",\"2021-06-24T01:26:57.00Z\"]},{\"column\":\"event_type_id.code\",\"operator\":0,\"values\":[\"4867\"]}]}}";
-                //string jsonb = "{\"Query\":{\"limit\":"+limit+",\"conditions\":[{\"column\":\"datetime\",\"operator\":3,\"values\":[\""+f_ini+".00Z\",\""+f_nal+".00Z\"]},{\"column\":\"event_type_id.code\",\"operator\":0,\"values\":[\""+type+ "\"],\"descending\":true}]}}";
-                //string jsonb = "{\"Query\":{\"limit\":51,\"orders\":[{\"column\":\"datetime\",\"descending\":true}]}}";
+                //string jsonb = "{\"Query\":{\"limit\":200,\"orders\":[{\"column\":\"datetime\",\"descending\":true}]}}";
                 streamWriter.Write(jsonb);
             }
             try
@@ -221,33 +217,35 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
                 Console.WriteLine(ex);
                 responseBody = ex.ToString();
             }
+
+
             Data_event.raiz_data from_js = JsonSerializer.Deserialize<Data_event.raiz_data>(responseBody);
             Data_event.intern_row from_js_2 = JsonSerializer.Deserialize<Data_event.intern_row>(from_js.EventCollection);
             /////////////////////////////////////////
+            ///
+            //int length = from_js_2.rows.Count;
+            
+
+
             String str = from_js_2.rows.ToString();
             //dynamic objects = JsonSerializer.Deserialize<dynamic>(str);
             dynamic objects = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(str);
 
 
 
-
-
             string[] respuestas = new string[objects.Count];
             int ct = 0;
+
+
             for (int i_el = 0; i_el < objects.Count; i_el++)
             {
                 Data_event.intern_data from_js_3 = JsonSerializer.Deserialize<Data_event.intern_data>(objects[i_el].ToString());
                 Data_event.intern_in_data from_js_dtime = JsonSerializer.Deserialize<Data_event.intern_in_data>(from_js_3.device_id);
 
-                Data_event.intern_in_data userid = JsonSerializer.Deserialize<Data_event.intern_in_data>(from_js_3.user_id);
-
                 if (from_js_3.user_id_name != null)
                 {
                     //respuestas[ct] = "fecha_:" + from_js_3.datetime.ToString() + "__Id_dispositivo_:" + from_js_dtime.id.ToString() + "__Nombre_:" + from_js_dtime.name.ToString() + '_' + from_js_3.user_id_name.ToString();
-                    //respuestas[ct] = from_js_3.datetime.ToString() + "/" + from_js_dtime.id.ToString() + "/" + from_js_dtime.name.ToString() + '/' + from_js_3.user_id_name.ToString();
-
-                    respuestas[ct] = from_js_3.datetime.ToString() + "/" + from_js_dtime.id.ToString() + "/" + from_js_dtime.name.ToString() + '/' + userid.user_id.ToString();
-
+                    respuestas[ct] = from_js_3.datetime.ToString() + "/" + from_js_dtime.id.ToString() + "/" + from_js_dtime.name.ToString() + '/' + from_js_3.user_id_name.ToString();
                     ct += 1;
                     //Data_event.intern_in_data from_js_usr = JsonSerializer.Deserialize<Data_event.intern_in_data>(from_js_3.user_id_name);
                     //cadena = cadena + "fecha_:" + from_js_3.datetime.ToString() + "__Id_dispositivo_:" + from_js_dtime.id.ToString() + "__Nombre_:" + from_js_dtime.name.ToString()+'_'+ from_js_3.user_id_name.ToString();// +'_'+ from_js_dtime.user_id_name.ToString();// + '_' + usd_id.user_id.ToString() + '_' + usd_id.name.ToString();
@@ -272,23 +270,31 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
             return responseBody;
         }
 
-        public string parsing_beat(string bioidemp) 
+        public string parsing_beat(string bioidemp, string quer) 
         {
-            string found = "nada";
+            string found="nada";
 
-            string quer = giveme_workbeat_empleados();
+            
 
             string[] analize_nip = quer.Split("NIP\":\"");
+
+
             string[] analize_emp = quer.Split("NumeroEmpleado\":\"");
+
+
+
             
             for (int i_el = 0; i_el < analize_nip.Length-1; i_el++)
             {   
-                if (analize_emp[i_el].Split("\",\"NombreEmpleado\":\"")[0] == '0'+bioidemp)
+                if (analize_emp[i_el].ToString().Split("\",\"NombreEmpleado\":\"")[0].ToString() == "0"+bioidemp.ToString())
                 {
-                    found = analize_nip[i_el].Split("\"}],\"Atributos")[0];
+                    found = analize_nip[i_el].ToString().Split("\"}],\"Atributos")[0];
                 }
             }
-            return found;
+
+
+
+            return found;// analize_nip.Length.ToString();// analize_nip[1].ToString().Split("\"}],\"Atributos")[0]; //found;// analize_emp[1].ToString().Split("\",\"NombreEmpleado\":\"")[0]+'_'+ '0' + bioidemp;// analize_nip.Length.ToString();
         }
 
 
@@ -298,87 +304,76 @@ namespace K2_Betterware_Assistance_Scheduler.Infraestructure.Service
         /// </summary>
         public string[] registrando_bio_beat(string f_ini, string f_nal, string limit, string type)
         {
+            using StreamWriter file = new StreamWriter("C:/logs.txt", append: true);
+            string p_id1 = "nada";
+            string p_id2 = "nada";
+
             string to_check = " ";
-            string reponse = " ";
-
             string tok_bio = token_bio();
+
             string tok_beat = getToken();
-
-
-            //"2021-06-17T17:13:30Z"/"542194755"/"COMEDOR 2 BARRA MEXICANA"/"1794(MARTINEZ HERRERA ARTURO)"
-            string[] data_check = bio_event_search(f_ini,f_nal,limit,type,tok_bio);
-
+            string jsonb = "{\"Query\":{\"limit\":" + limit + ",\"conditions\":[{\"column\":\"datetime\",\"operator\":3,\"values\":[\"" + f_ini + ".00Z\",\"" + f_nal + ".00Z\"]},{\"column\":\"event_type_id.code\",\"operator\":0,\"values\":[\"" + type + "\"],\"descending\":true}]}}";
+            string[] data_check = bio_event_search(tok_bio, jsonb);
             string[] salida = new string[data_check.Length];
-            //string[] salida_test = new string[10];
-            //string[] salida = new string[data_check.Length];
 
-            if (data_check.Length == 0)
+            string[] to_check_words = data_check[0].Split('/');
+            string p_idin = to_check_words[3].Split('"')[1];
+
+            string quer = giveme_workbeat_empleados();
+
+            p_id1 = parsing_beat(p_idin, quer);
+            string fechahora1 = to_check_words[0].ToString().Split('"')[1].Split('Z')[0];
+            string dispositivoId1 = to_check_words[1].ToString().Split('"')[1];
+            string posi1 = to_check_words[2].ToString().Split('"')[1];
+
+            p_id2 = parsing_beat(p_idin, quer);
+            string fechahora2 = to_check_words[0].ToString().Split('"')[1].Split('Z')[0];
+            string dispositivoId2 = to_check_words[1].ToString().Split('"')[1];
+            string posi2 = to_check_words[2].ToString().Split('"')[1];
+
+
+
+            if (data_check.Length > 0)
             {
-                string p_id1 = "8251";
-                string fechahora = "2019-11-05T09:04:08";
-                string dispositivoId = "11948";
-                string posi = "[E|1|N]";
-                //salida[0] = Checando_tok(p_id1, fechahora, dispositivoId, posi, tok_beat);
-                //salida_test[0] = Checando_tok(p_id1, fechahora, dispositivoId, posi, tok_beat);
-            }
-            else
-            {
-                //////////////////////////////////////// lo consultado en biostar no existe en workbeat y no permite el registro //////////////////////
-                //////////////////////////////////////// 
-                string nips = "4318"+','+"7482"+','+"5766"+','+"8985"+','+"4220"+','+"9952"+','+"5210"+','+"5805"+','+"1205"+','+"2056";
-
-
-                //string fechora = "2019-11-05T09:04:08" + ',' + "2019-11-05T09:04:08" + ',' + "2019-11-05T09:04:08" + ',' + "8985" + ',' + "4220" + ',' + "9952" + ',' + "5210" + ',' + "5805" + ',' + "1205" + ',' + "2056";
-                //for (int i_ch = 0; i_ch < 10; i_ch++)
-
-
+                
                 for (int i_ch = 0; i_ch < data_check.Length; i_ch++)
-                //for (int i_ch = 0; i_ch < 10; i_ch++)
-                    {
-                    //DateTime localDate = DateTime.Now;
-                    //string f1 = localDate.ToString("s");
-                    //System.Threading.Thread.Sleep(200);
-
-
+                {
                     to_check = data_check[i_ch];
-                    string[] to_check_words = to_check.Split('/');
-                    string p_idin = to_check_words[3].Split('"')[1];     ///
-
-                    //string to_fix = to_check_words[0].ToString().Split('"')[1];
-                    string ppp = to_check_words[0].ToString().Split('"')[1].Split('Z')[0];
+                    to_check_words = to_check.Split('/');
+                    p_idin = to_check_words[3].Split('"')[1];
 
 
+                    /*p_id1 = "8251";                                                                   // parsing_beat(p_idin, quer);
+                    fechahora1 = "2021-06-23T20:07:45";                                               // to_check_words[0].ToString().Split('"')[1].Split('Z')[0];
+                    dispositivoId1 = "542194755";                                                     // to_check_words[1].ToString().Split('"')[1];
+                    posi1 = "CHECADOR RECEPCION";*/                                                     // to_check_words[2].ToString().Split('"')[1];
 
-                    DateTime localDate1 = DateTime.Now;
+                    p_id1 = parsing_beat(p_idin, quer);
+                    fechahora1 = to_check_words[0].ToString().Split('"')[1].Split('Z')[0];
+                    dispositivoId1 = to_check_words[1].ToString().Split('"')[1];
+                    posi1 = to_check_words[2].ToString().Split('"')[1];
 
 
 
 
-                    string p_id = "2821"; //nips.Split(',')[i_ch];   // "8985"; //nips[i_ch].ToString();//"8251"; //nips[i_ch].ToString();                                   //"6431";//6431 1937 9269 9749 3183 4318 4930 4206 2726 7599
-                    string fechahora = localDate1.ToString("s");     // "2019-11-05T09:04:08";
-                    string dispositivoId = to_check_words[1].ToString().Split('"')[1]; //"542194757";// to_check_words[1].ToString().Split('"')[1]; //"11948";
-                    string posi = "[E|1|N]"; //to_check_words[2].ToString().Split('"')[1];// "[E|1|N]";
+                    if (p_id1 == "nada")
+                    { 
+                    salida[i_ch] = p_id1 + '_' + fechahora1 + '_' + dispositivoId1 + '_' + posi1;//Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat); //p_id1 + '_' + fechahora1 + '_' + dispositivoId1 + '_' + posi1 + '_' + tok_beat;//
+                    file.WriteLineAsync("error_el usuario de biostar no esta en workbeat:" + p_id1 + '_' + fechahora1 + '_' + dispositivoId1 + '_' + posi1);
+                    }
 
-                    ///////////////////////////////////////////////////////////////////////////////////////
-                    ///////////////////////// convertir de p_idin a NIP ///////////////////////////////////
-                    ///////////////////////////////////////////////////////////////////////////////////////
-
-                    //string converted = parsing_beat(p_idin);
-                    string p_id1 = parsing_beat(p_idin);                                        //[1].Split('(')[0];
-                    string fechahora1 = localDate1.ToString("s");
-                    string dispositivoId1 = to_check_words[1].ToString().Split('"')[1];
-                    string posi1 = to_check_words[2].ToString().Split('"')[1];                   //"[E|1|N]";
-
-                    //salida[i_ch] = "Dato Biostar rechazado:_" + p_id1 +'_'+fechahora1 +'_'+ dispositivoId1 +'_'+ posi1 + "________________Dato en Workbeat aceptado:_" + p_id +'_'+ fechahora +'_'+ dispositivoId +'_'+ posi;// to_fix;//p_id[1].Split('(')[0];
-                    //salida[i_ch] = p_id1 + fechahora + dispositivoId + "[E|1|N]";// to_fix;//p_id[1].Split('(')[0];
                     if (p_id1 != "nada")
-                    { salida[i_ch] = Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat); }   ////////////// datos Aceptados /////////////
-                    //salida[i_ch] = Checando_tok(p_id, fechahora, dispositivoId, posi, tok_beat);
-                    //salida_test[i_ch] = Checando_tok(p_id, fechahora, dispositivoId, posi, tok_beat);
+                    {
+                        //salida[i_ch] = p_id1 + '_' + fechahora1 + '_' + dispositivoId1 + '_' + posi1+"_____________________"+ p_id2 + '_' + fechahora2 + '_' + dispositivoId2 + '_' + posi2;// Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat); //p_id1;// Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat);
+                        salida[i_ch] = Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat); //p_id1;// Checando_tok(p_id1, fechahora1, dispositivoId1, posi1, tok_beat);
+
+                    }
+
                 }
             }
-            //Array.Copy(respuestas, 0, salida, 0, ct - 1);
-            return salida;
+
+
+            return salida;//p_id1 + '_' + fechahora1 + '_' + dispositivoId1 + '_' + posi1 + '_' + tok_beat; //salida;//data_check;//salida;//p_id1+'_'+fechahora1+'_'+dispositivoId1+'_'+posi1+'_'+tok_beat;//
         }
 
 
